@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView Continue,Puzzles,BuyPro;
-    int levelNo=0;
+
+    private int cnt=1;
+    private int levelNo=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +23,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Continue=findViewById(R.id.cont);
         Puzzles=findViewById(R.id.puzzle);
         BuyPro=findViewById(R.id.buy);
+
+        levelNo=getIntent().getIntExtra("levelNo",levelNo);
+        cnt=getIntent().getIntExtra("cnt",cnt);
 
         Continue.setOnClickListener(this);
         Puzzles.setOnClickListener(this);
@@ -32,13 +39,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v.getId()==Continue.getId())
         {
             Intent intent=new Intent(MainActivity.this,Continue_activity.class);
-            intent.putExtra("levelno",levelNo);
+            intent.putExtra("level",levelNo);
+            System.out.println("next="+levelNo);
+            intent.putExtra("cnt",cnt);
             startActivity(intent);
         }
         if(v.getId()==Puzzles.getId())
         {
             Intent intent=new Intent(MainActivity.this,pazzles_level_activity.class);
-            intent.putExtra("levelno",levelNo);
             startActivity(intent);
 
         }

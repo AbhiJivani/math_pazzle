@@ -55,8 +55,7 @@
             android:layout_height="@dimen/_230sdp"
             android:layout_below="@+id/layout"
             android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:background="@drawable/p1" />
+            android:layout_marginEnd="@dimen/_20sdp" />
 
     </LinearLayout>
     <LinearLayout

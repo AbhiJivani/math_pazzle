@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,18 +21,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Continue_activity extends AppCompatActivity implements View.OnClickListener {
-    TextView levelbord, Submit, text;
+    TextView levelbord, Submit, text,textView;
     ImageView delete;
     TextView[] b = new TextView[10];
 
-    int[] que = {R.drawable.p1, R.drawable.p2, R.drawable.p3, R.drawable.p4, R.drawable.p5,
-            R.drawable.p6, R.drawable.p7, R.drawable.p8, R.drawable.p9, R.drawable.p10};
-
-    String[] ans = {"10", "20", "30", "40", "50", "60", "70", "80", "90", "100"};
     private String temp;
     private String t;
     private ArrayList<String> imgArr;
-    int levelNo = 0;
+    int levelNo;
+    int cnt;
 
 
 
@@ -45,10 +43,21 @@ public class Continue_activity extends AppCompatActivity implements View.OnClick
         text = findViewById(R.id.text);
         delete = findViewById(R.id.del);
         delete.setOnClickListener(this);
+        textView=findViewById(R.id.textview);
 
+        //best = getIntent().getIntExtra("best", best);
+        //levelNo=best;
+        //position=getIntent().getIntExtra("pos",0);
+        levelNo=getIntent().getIntExtra("levelNo",levelNo);
+        cnt=getIntent().getIntExtra("cnt",cnt);
+
+        Submit.setOnClickListener(this);
+
+
+        levelbord.setText("Level "+cnt);
+        textView.setBackgroundResource(config.que[levelNo]);
 
         for (int i = 0; i < b.length; i++) {
-
             int id = getResources().getIdentifier("b" + i, "id", getPackageName());
             b[i] = findViewById(id);
             b[i].setOnClickListener(this);
@@ -73,10 +82,12 @@ public class Continue_activity extends AppCompatActivity implements View.OnClick
         try {
             stream = getAssets().open("levelbord/" + imgArr.get(levelNo));
             Drawable drawable = Drawable.createFromStream(stream, null);
-            ImageView img;
+            ImageView img = null;
             img.setImageDrawable(drawable);
         } catch (Exception ignored) {
-        } finally {
+        }
+        finally
+        {
             try {
                 if (stream != null) {
                     stream.close();
@@ -149,22 +160,35 @@ public class Continue_activity extends AppCompatActivity implements View.OnClick
             t=temp+"9";
             text.setText(""+t);
         }
-        if(v.getId()==delete.getId())
+        try
         {
-            t=text.getText().toString().substring(0,t.length()-1);
-            text.setText(""+t);
-        }
-        if(v.getId()==Submit.getId())
-        {
-            if(t==ans[0])
+            if(v.getId()==delete.getId())
             {
-                Intent intent=new Intent(Continue_activity.this,Winner_activity.class);
-                intent.putExtra("position",0);
-                intent.putExtra("qustion",que);
-                intent.putExtra("ans",ans);
-                startActivity(intent);
+                t=text.getText().toString().substring(0,t.length()-1);
+                text.setText(""+t);
             }
         }
+        catch (Exception ex)
+        {
+            Toast.makeText(this,"something went worng...",Toast.LENGTH_SHORT).show();
+        }
 
+        if(v.getId()==Submit.getId())
+        {
+            if(text.getText().toString().equals(config.ans[levelNo]))
+            {
+                Intent intent=new Intent(Continue_activity.this,Winner_activity.class);
+                intent.putExtra("levelNo",levelNo);
+                intent.putExtra("cnt",cnt);
+
+                startActivity(intent);
+            }
+            else
+            {
+                Toast.makeText(this,"something went worng...",Toast.LENGTH_SHORT).show();
+                text.setText("");
+
+            }
+        }
     }
 }

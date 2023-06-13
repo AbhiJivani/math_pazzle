@@ -9,7 +9,7 @@
         android:id="@+id/txtwin"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:text="PUZZLE 1 COMPLETED"
+        android:text=""
         android:textColor="#6200EA"
         android:textSize="30sp"
         android:gravity="center"
@@ -51,7 +51,7 @@
             android:layout_marginBottom="@dimen/_10sdp"/>
 
         <TextView
-            android:id="@+id/manu"
+            android:id="@+id/menu"
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_50sdp"
             android:text="MAIN MENU"
