@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v.getId()==Puzzles.getId())
         {
             Intent intent=new Intent(MainActivity.this,pazzles_level_activity.class);
+            intent.putExtra("levelno",levelNo);
             startActivity(intent);
 
         }
