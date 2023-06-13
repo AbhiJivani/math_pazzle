@@ -16,7 +16,7 @@
             android:name=".Winner_activity"
             android:exported="false" />
         <activity
-            android:name=".pazzles_level_activity"
+            android:name=".Pazzles_level_activity"
             android:exported="true">
 
         </activity>

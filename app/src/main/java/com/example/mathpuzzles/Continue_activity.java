@@ -30,7 +30,8 @@ public class Continue_activity extends AppCompatActivity implements View.OnClick
     private ArrayList<String> imgArr;
     int levelNo;
     int cnt;
-
+    private int pageno;
+    private int position;
 
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
@@ -45,9 +46,9 @@ public class Continue_activity extends AppCompatActivity implements View.OnClick
         delete.setOnClickListener(this);
         textView=findViewById(R.id.textview);
 
-        //best = getIntent().getIntExtra("best", best);
-        //levelNo=best;
-        //position=getIntent().getIntExtra("pos",0);
+        position=getIntent().getIntExtra("position",position);
+        textView.setBackgroundResource(config.que[position]);
+
         levelNo=getIntent().getIntExtra("levelNo",levelNo);
         cnt=getIntent().getIntExtra("cnt",cnt);
 
