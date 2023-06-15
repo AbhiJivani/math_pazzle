@@ -1,9 +1,12 @@
 package com.example.mathpuzzles;
 
+
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,19 +22,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Continue_activity extends AppCompatActivity implements View.OnClickListener {
-    TextView levelbord, Submit, text,textView;
-    ImageView delete;
+    TextView levelbord, Submit, text;
+    ImageView delete,img;
     TextView[] b = new TextView[10];
 
     private String temp;
     private String t;
-    private ArrayList<String> imgArr;
+    List<String> imgArr=new ArrayList<>();
     int levelNo;
     int cnt;
-    private int pageno;
-    private int position;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
 
     @SuppressLint({"WrongViewCast", "MissingInflatedId"})
@@ -44,58 +48,47 @@ public class Continue_activity extends AppCompatActivity implements View.OnClick
         text = findViewById(R.id.text);
         delete = findViewById(R.id.del);
         delete.setOnClickListener(this);
-        textView=findViewById(R.id.textview);
+        img=findViewById(R.id.img);
 
-        position=getIntent().getIntExtra("position",position);
-        textView.setBackgroundResource(config.que[position]);
-
-        levelNo=getIntent().getIntExtra("levelNo",levelNo);
+        levelNo=getIntent().getIntExtra("level",levelNo);
         cnt=getIntent().getIntExtra("cnt",cnt);
 
         Submit.setOnClickListener(this);
-
-
         levelbord.setText("Level "+cnt);
-        textView.setBackgroundResource(config.que[levelNo]);
+
 
         for (int i = 0; i < b.length; i++) {
             int id = getResources().getIdentifier("b" + i, "id", getPackageName());
             b[i] = findViewById(id);
             b[i].setOnClickListener(this);
             System.out.println(b[i]);
-
         }
-        String[] images = new String[0];
-        try {
-            images = getAssets().list("LevelImages/");
-            imgArr = new ArrayList<String>(Arrays.asList(images));
-            Log.d("YYY", "onCreate: Images=" + imgArr);
-//            for(int i=0;i<images.length;i++)
-//            {
-//                Log.d("YYY", "onCreate: Images="+images[i]);
-//            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        InputStream stream = null;
-        try {
-            stream = getAssets().open("levelbord/" + imgArr.get(levelNo));
-            Drawable drawable = Drawable.createFromStream(stream, null);
-            ImageView img = null;
-            img.setImageDrawable(drawable);
-        } catch (Exception ignored) {
-        }
-        finally
-        {
+            //assets img in put
+            String[] images=new String[0];
             try {
-                if (stream != null) {
-                    stream.close();
-                }
-            } catch (Exception ignored) {
+                images = getAssets().list("levelbord");
+                imgArr = new ArrayList<String>(Arrays.asList(images));
+                Log.d("YYY", "onCreate: Images="+imgArr);
+
+            } catch (IOException e) {
+                e.printStackTrace();}
+            InputStream stream = null;
+            try
+            {
+                stream = getAssets().open("levelbord/"+imgArr.get(levelNo));
+                Drawable drawable = Drawable.createFromStream(stream, null);
+                img.setImageDrawable(drawable);
             }
-        }
+            catch (Exception ignored) {} finally {
+                try {
+                    if (stream != null) {
+                        stream.close();
+                    }
+                } catch (Exception ignored) {
+
+                }
+            }
+
     }
 
 
@@ -176,13 +169,17 @@ public class Continue_activity extends AppCompatActivity implements View.OnClick
 
         if(v.getId()==Submit.getId())
         {
+
             if(text.getText().toString().equals(config.ans[levelNo]))
             {
+                editor.putInt("lastlevel",levelNo);
+                editor.putString("levelstates"+levelNo,"win");
+                editor.commit();
                 Intent intent=new Intent(Continue_activity.this,Winner_activity.class);
-                intent.putExtra("levelNo",levelNo);
+                intent.putExtra("level",levelNo);
                 intent.putExtra("cnt",cnt);
-
                 startActivity(intent);
+                finish();
             }
             else
             {

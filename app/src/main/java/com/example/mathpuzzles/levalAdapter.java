@@ -12,10 +12,13 @@ public class levalAdapter extends BaseAdapter
 {
     Pazzles_level_activity pazzles_level_activity;
     String no[];
+    int tick;
+    int lock;
 
     public levalAdapter(Pazzles_level_activity pazzles_level_activity, String[] no) {
         this.pazzles_level_activity = pazzles_level_activity;
         this.no= no;
+
     }
 
     @Override
@@ -37,9 +40,7 @@ public class levalAdapter extends BaseAdapter
     public View getView(int position, View view, ViewGroup parent) {
     view=LayoutInflater.from(pazzles_level_activity).inflate(R.layout.pazzles_level_item,parent,false);
         ImageView imageView=view.findViewById(R.id.lockno);
-        ImageView imageView1=view.findViewById(R.id.tick);
-        TextView textView=view.findViewById(R.id.txtno);
-        textView.setText(no[position]);
+        imageView.setImageResource(config.lock);
         return view;
     }
 }

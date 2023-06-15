@@ -13,26 +13,26 @@
         android:text="1"
         android:gravity="center"
         android:textStyle="bold"
+        android:visibility="invisible"
         android:layout_margin="@dimen/_5sdp"/>
-
-    <ImageView
-
-        android:id="@+id/tick"
-        android:layout_width="@dimen/_70sdp"
-        android:layout_height="@dimen/_70sdp"
-        android:layout_marginStart="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/_5sdp"
-        android:layout_marginBottom="@dimen/_5sdp"
-        android:background="@drawable/tick" />
 
 
     <ImageView
         android:id="@+id/lockno"
         android:layout_width="@dimen/_70sdp"
         android:layout_height="@dimen/_70sdp"
-        android:background="@drawable/lock"
-        android:layout_margin="@dimen/_5sdp"/>
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp" />
 
+    <ImageView
+        android:id="@+id/tick"
+        android:layout_width="@dimen/_70sdp"
+        android:layout_height="@dimen/_70sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"/>
 
 </RelativeLayout>

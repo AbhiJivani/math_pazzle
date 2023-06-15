@@ -1,5 +1,7 @@
 package com.example.mathpuzzles;
 
+import static com.example.mathpuzzles.config.tick;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -32,9 +34,7 @@ public class Pazzles_level_activity extends AppCompatActivity {
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(Pazzles_level_activity.this,Continue_activity.class);
-                intent.putExtra("position",position);
-                startActivity(intent);
+
 
             }
         });
