@@ -1,7 +1,5 @@
 package com.example.mathpuzzles;
 
-import static com.example.mathpuzzles.config.tick;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -9,35 +7,38 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageButton;
 
-public class Pazzles_level_activity extends AppCompatActivity {
+public class Pazzles_level_activity extends AppCompatActivity implements View.OnClickListener {
 
     GridView gridView;
     private int levelNo;
-    private int cnt;
-
-
+    ImageButton next,back;
+    private int cnt=1;
+    private int position;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pazzles_level);
-        gridView=findViewById(R.id.level_view);
+        gridView = findViewById(R.id.level_view);
+        next=findViewById(R.id.next);
+        back=findViewById(R.id.back);
 
-        levelNo=getIntent().getIntExtra("levelNo",levelNo);
-        cnt=getIntent().getIntExtra("cnt",cnt);
-
-        levalAdapter adapter=new levalAdapter(Pazzles_level_activity.this,config.no);
+        next.setOnClickListener(this);
+        back.setOnClickListener(this);
+        levelNo = getIntent().getIntExtra("level", levelNo);
+        levalAdapter adapter = new levalAdapter(Pazzles_level_activity.this,config.no);
         gridView.setAdapter(adapter);
+    }
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+    @Override
+    public void onClick(View v)
+    {
+        if(v.getId()==next.getId())
+        {
 
-
-            }
-        });
-
+        }
     }
 }

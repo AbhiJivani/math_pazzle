@@ -11,9 +11,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     TextView Continue,Puzzles,BuyPro;
-    private int cnt=1;
-     int levelNo=0;
 
+    int levelNo=0;
     int lastlevel;
     public static SharedPreferences preferences;
     public static SharedPreferences.Editor editor;
@@ -28,10 +27,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         preferences=getSharedPreferences("mypre",MODE_PRIVATE);
         editor=preferences.edit();
-        lastlevel=preferences.getInt("lastLevel",0);
+        lastlevel=preferences.getInt("lastlevel",-1);//0
 
-        levelNo=getIntent().getIntExtra("level",levelNo);
-        cnt=getIntent().getIntExtra("cnt",cnt);
+       // levelNo=getIntent().getIntExtra("level",levelNo);
 
         Continue.setOnClickListener(this);
         Puzzles.setOnClickListener(this);
@@ -45,15 +43,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v.getId()==Continue.getId())
         {
             Intent intent=new Intent(MainActivity.this,Continue_activity.class);
-            intent.putExtra("level",levelNo);
-            intent.putExtra("cnt",cnt);
+            intent.putExtra("level",lastlevel+1);//0
             startActivity(intent);
         }
         if(v.getId()==Puzzles.getId())
         {
             Intent intent=new Intent(MainActivity.this, Pazzles_level_activity.class);
-            intent.putExtra("level",levelNo);
-            intent.putExtra("cnt",cnt);
+            //intent.putExtra("level",levelNo);
             startActivity(intent);
 
         }
