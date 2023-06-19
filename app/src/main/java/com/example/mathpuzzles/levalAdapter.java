@@ -12,8 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class levalAdapter extends BaseAdapter
-{
+public class levalAdapter extends BaseAdapter {
     Pazzles_level_activity pazzles_level_activity;
     private int lastlevel;
     int[] no;
@@ -21,7 +20,7 @@ public class levalAdapter extends BaseAdapter
 
     public levalAdapter(Pazzles_level_activity pazzles_level_activity, int[] no) {
         this.pazzles_level_activity = pazzles_level_activity;
-        this.no=no;
+        this.no = no;
     }
 
     @Override
@@ -48,39 +47,36 @@ public class levalAdapter extends BaseAdapter
         lock.setImageResource(config.lock);
         tick.setImageResource(config.tick);
 
+        String page = preferences.getString("page", "page");
         int lastLevel = preferences.getInt("lastlevel", -1);
         String status = preferences.getString("levelstatus" + position, "Pending");
-        String page = preferences.getString("page", "pp");
-        Log.d("KKK", "getView: lastlevel=" + lastLevel);
-        Log.d("KKK", "getView: Position=" + position + "\tStatus=" + status);
-            if (position == 0)
-            {
-                lock.setVisibility(View.GONE);
-                textView.setText("" + (position+1));
-                textView.setVisibility(View.VISIBLE);
-            }
+        if (position == 0) {
 
-            if (status.equals("win"))//1 ==
-            {
-                lock.setVisibility(View.GONE);
-                textView.setText("" + (position+1));
-                textView.setVisibility(View.VISIBLE);
-                tick.setVisibility(View.VISIBLE);
-            } else if (status.equals("win") || lastLevel + 1 == position) {
-                lock.setVisibility(View.GONE);
-                textView.setText("" +(position+1));
-                textView.setVisibility(View.VISIBLE);
-            }
-            if (status.equals("win") || status.equals("skip") || position == lastlevel + 1) {
-                view.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(pazzles_level_activity, Continue_activity.class);
-                        intent.putExtra("level", position);
-                        pazzles_level_activity.startActivity(intent);
-                    }
-                });
-            }
+            lock.setVisibility(View.GONE);
+            textView.setText("" + (position + 1));
+            textView.setVisibility(View.VISIBLE);
+        }
+        if (status.equals("win")) {
+            lock.setVisibility(View.GONE);
+            textView.setText("" + (position + 1));
+            textView.setVisibility(View.VISIBLE);
+            tick.setVisibility(View.VISIBLE);
+        } else if (status.equals("win") || lastLevel + 1 == position) {
+            lock.setVisibility(View.GONE);
+            textView.setText("" + (position + 1));
+            textView.setVisibility(View.VISIBLE);
+        }
+        if (status.equals("win") || status.equals("skip") || position == lastlevel + 1) {
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(pazzles_level_activity, Continue_activity.class);
+                    intent.putExtra("level", position);
+                    pazzles_level_activity.startActivity(intent);
+                }
+            });
+        }
+
         return view;
 
     }
