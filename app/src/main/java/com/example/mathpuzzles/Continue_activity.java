@@ -182,7 +182,7 @@ public class Continue_activity extends AppCompatActivity implements View.OnClick
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        builder.show();
+
                         editor.putInt("lastLevel",levelNo);//0
                         editor.putString("levelstatus"+levelNo, "skip");
                         editor.commit();

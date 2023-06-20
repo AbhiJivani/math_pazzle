@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor=preferences.edit();
         lastlevel=preferences.getInt("lastlevel",-1);//0
 
-       // levelNo=getIntent().getIntExtra("level",levelNo);
+        levelNo=getIntent().getIntExtra("level",levelNo);//1
 
         Continue.setOnClickListener(this);
         Puzzles.setOnClickListener(this);
@@ -43,13 +43,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v.getId()==Continue.getId())
         {
             Intent intent=new Intent(MainActivity.this,Continue_activity.class);
-            intent.putExtra("level",lastlevel+1);//0
+            intent.putExtra("level",lastlevel+1);//0-1
             startActivity(intent);
         }
         if(v.getId()==Puzzles.getId())
         {
             Intent intent=new Intent(MainActivity.this, Pazzles_level_activity.class);
-            //intent.putExtra("level",levelNo);
+            intent.putExtra("level",levelNo+1);//0-1
             startActivity(intent);
 
         }
